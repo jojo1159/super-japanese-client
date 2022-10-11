@@ -5,11 +5,16 @@
         class="page-login__body d-flex flex-row-reverse position-relative justify-content-center align-items-center"
       >
         <div class="d-flex justify-content-center align-items-center w-100">
-          <b-form class="sign-in__card" @submit="onSubmit" @reset="onReset">
+          <b-form
+            class="sign-in__card d-flex justify-content-center flex-column"
+            @submit="onSubmit"
+            @reset="onReset"
+          >
             <b-form-group id="input-group-1" label-for="input-1">
               <b-form-input
                 id="input-1"
                 v-model="form.email"
+                class="mt-3"
                 type="email"
                 size="lg"
                 placeholder="Enter email"
@@ -29,7 +34,19 @@
               numbers, and must not contain spaces, special characters, or
               emoji.
             </b-form-text>
-            <b-button variant="danger" type="submit" block>Submit</b-button>
+
+            <b-button variant="danger" class="mt-2" type="submit" block
+              >Submit</b-button
+            >
+            <NuxtLink
+              to="/forgot-password"
+              class="mt-2 align-self-center forgot-password-link"
+              >Forgot Password</NuxtLink
+            >
+            <p class="mt-3 align-self-center">
+              You haven't account ?
+              <NuxtLink to="/regist"> regist a for now</NuxtLink>
+            </p>
           </b-form>
         </div>
         <div
@@ -39,10 +56,12 @@
             class="page-login__content d-flex flex-column align-items-center justify-content-center"
           >
             <div class="text-center">
-              <h3 class="display-4">Dang Nhap He Thong</h3>
+              <h3 class="display-4">Sign Up Form</h3>
               <p>
-                Dang Nhap He ThongDang Nhap He ThongDang Nhap He ThongDang Nhap
-                He ThongDang Nhap He Thong
+                Welcome to Ruki Nihongo's online Japanese learning system. We
+                always want to bring you the most quality and interesting
+                lectures from a team of leading experts in JLPT training,
+                business communication.
               </p>
             </div>
           </div>
@@ -339,11 +358,12 @@ export default {
     }
   },
   methods: {
-    onSubmit(event) {
-      console.log('alooo')
+    async onSubmit(event) {
       event.preventDefault()
-      this.$store.dispatch('auth/signIn', this.form)
-      alert(JSON.stringify(this.form))
+      try {
+        await this.$store.dispatch('auth/signIn', this.form)
+        this.$router.push('/dashboard')
+      } catch (error) {}
     },
     onReset(event) {
       event.preventDefault()
@@ -394,5 +414,10 @@ export default {
 .page-login__content {
   color: white;
   max-width: 380px;
+}
+
+.forgot-password-link {
+  color: black !important;
+  font-weight: 500;
 }
 </style>

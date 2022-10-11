@@ -53,12 +53,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async signIn(context, params) {
+  async signIn(context, params, success, failure) {
     context.commit('setIsLoading', true);
-      console.log("params",params)
+    try {
       const res = await this.$api.auth.signIn(params);
       context.commit('setUser', res);
+      success?.()
       return res
+    } catch (err) {
+      failure?.()
+      throw err
+    }
   },
   setAuthHeaders(context, headers) {
     context.commit('setAccessToken', headers['access-token']);

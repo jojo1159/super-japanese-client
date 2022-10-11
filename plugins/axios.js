@@ -22,6 +22,7 @@ export default function ({ app, store, $axios, redirect, error: nuxtError }, inj
       redirect("/sign-in")
       const message = error.response?.data?.errors[0]
       app.$notyf.showMessage({ type: "danger", message })
+      throw error
     }
     throw error
   })
