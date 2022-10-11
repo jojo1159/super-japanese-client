@@ -1,0 +1,22 @@
+$default-radius: 1rem;
+$green-custom: #36c2a6;
+$red-custom: #fd8d99;
+$card-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+$theme-colors: (
+  "primary": $green-custom,
+  "danger": #fd8d99
+);
+
+.btn-danger {
+  color: white !important
+}
+
+.sign-in__card {
+  max-width: 450px;
+  padding: 16px;
+  box-shadow: $card-shadow;
+  border-radius: $default-radius
+}
+
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-vue/src/index.scss';
