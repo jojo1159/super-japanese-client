@@ -18,5 +18,9 @@ $theme-colors: (
   border-radius: $default-radius
 }
 
+.no-padding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/bootstrap-vue/src/index.scss';
