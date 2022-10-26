@@ -12,6 +12,14 @@ export default {
     SignIn,
   },
   layout: 'empty',
+  data() {
+    return {
+      form: {
+        name: '',
+        course: '',
+      },
+    }
+  },
   created() {},
   methods: {},
 }

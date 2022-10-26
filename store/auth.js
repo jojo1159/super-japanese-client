@@ -58,12 +58,13 @@ export const actions = {
     try {
       const res = await this.$api.auth.signIn(params);
       context.commit('setUser', res);
-      success?.()
+      context.commit('setIsLoading', false);
       return res
     } catch (err) {
-      failure?.()
+      context.commit('setIsLoading', false);
       throw err
     }
+
   },
   setAuthHeaders(context, headers) {
     context.commit('setAccessToken', headers['access-token']);
@@ -79,5 +80,17 @@ export const actions = {
   },
   async newPassword(context, params) {
 
+  },
+  async signUp(context, params) {
+    context.commit('setIsLoading', true);
+    try {
+      const res = await this.$api.auth.signUp(params);
+      context.commit('setUser', res);
+      context.commit('setIsLoading', false);
+      return res
+    } catch (err) {
+      context.commit('setIsLoading', false);
+      throw err
+    }
   },
 }

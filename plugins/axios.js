@@ -1,4 +1,5 @@
 import Auth from "@/api/auth";
+import course from "@/api/course";
 
 export default function ({ app, store, $axios, redirect, error: nuxtError }, inject) {
   $axios.onRequest((config) => {
@@ -7,7 +8,6 @@ export default function ({ app, store, $axios, redirect, error: nuxtError }, inj
     $axios.setHeader('client', store.getters['auth/client'])
     $axios.setHeader('uid', store.getters['auth/uid'])
     $axios.setHeader('Access-Control-Allow-Origin', '*')
-
   })
 
   $axios.onResponse((response) => {
@@ -20,15 +20,16 @@ export default function ({ app, store, $axios, redirect, error: nuxtError }, inj
     const isSignIn = error.response.config.url ===  "/sign_in";
     if (!isSignIn && error.response.status === 401) {
       redirect("/sign-in")
-      const message = error.response?.data?.errors[0]
-      app.$notyf.showMessage({ type: "danger", message })
+      // const message = error.response?.data?.errors[0]
+      // app.$notyf.showMessage({ type: "danger", message })
       throw error
     }
     throw error
   })
 
   const api = {
-    auth: Auth($axios)
+    auth: Auth($axios),
+    course: course($axios)
   }
 
   inject('api', api)

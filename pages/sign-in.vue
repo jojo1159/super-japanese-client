@@ -10,6 +10,15 @@
             @submit="onSubmit"
             @reset="onReset"
           >
+            <div
+              v-if="errorMessage"
+              class="alert alert-danger alert-dismissible"
+              role="alert"
+            >
+              <div class="alert-message">
+                {{ errorMessage }}
+              </div>
+            </div>
             <b-form-group id="input-group-1" label-for="input-1">
               <b-form-input
                 id="input-1"
@@ -17,7 +26,7 @@
                 class="mt-3"
                 type="email"
                 size="lg"
-                placeholder="Enter email"
+                placeholder="Enter Email"
                 required
               />
             </b-form-group>
@@ -45,7 +54,7 @@
             >
             <p class="mt-3 align-self-center">
               You haven't account ?
-              <NuxtLink to="/regist"> regist a for now</NuxtLink>
+              <NuxtLink to="/sign-up"> regist a for now</NuxtLink>
             </p>
           </b-form>
         </div>
@@ -56,7 +65,7 @@
             class="page-login__content d-flex flex-column align-items-center justify-content-center"
           >
             <div class="text-center">
-              <h3 class="display-4">Sign Up Form</h3>
+              <h3 class="display-4">Sign In!</h3>
               <p>
                 Welcome to Ruki Nihongo's online Japanese learning system. We
                 always want to bring you the most quality and interesting
@@ -355,6 +364,7 @@ export default {
         email: '',
         password: '',
       },
+      errorMessage: '',
     }
   },
   methods: {
@@ -363,7 +373,9 @@ export default {
       try {
         await this.$store.dispatch('auth/signIn', this.form)
         this.$router.push('/dashboard')
-      } catch (error) {}
+      } catch (error) {
+        this.errorMessage = error.response?.data?.errors[0]
+      }
     },
     onReset(event) {
       event.preventDefault()

@@ -9,6 +9,11 @@ export default axios => ({
 
     return response.data
   },
+  async signUp(params) {
+    const response = await axios.post("/auth", params);
+
+    return response.data
+  },
   async resetPassword(params) {
     const response = await axios.post("/auth/password", params);
 
